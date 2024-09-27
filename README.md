@@ -3,9 +3,8 @@ This code is just an experimental activity with pixels proposed in computer grap
 
 ## Getting Started
 npm i
-# and
+#
 npm run dev
 #
 ```
-
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
