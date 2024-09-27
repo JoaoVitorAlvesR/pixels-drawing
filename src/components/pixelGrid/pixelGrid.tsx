@@ -2,12 +2,12 @@
 import { useEffect, useState } from "react";
 
 export const PixelGrid = () => {
-  const storedPixels = localStorage.getItem("arrayPixelsSelected");
   const [pixelsSelected, setPixelsSelected] = useState<number[]>([]);
 
   useEffect(() => {
+    const storedPixels = localStorage.getItem("arrayPixelsSelected");
     setPixelsSelected(storedPixels ? JSON.parse(storedPixels) : []);
-  }, [storedPixels]);
+  }, []);
 
   const getColor = (row: number, col: number) => {
     const pixelIndex = row * 16 + col;
@@ -16,19 +16,12 @@ export const PixelGrid = () => {
 
   const handleClick = (row: number, col: number) => {
     const pixelIndex = row * 16 + col;
-    if (!pixelsSelected.includes(pixelIndex)) {
-      setPixelsSelected([...pixelsSelected, pixelIndex]);
-      localStorage.setItem(
-        "arrayPixelsSelected",
-        JSON.stringify([...pixelsSelected, pixelIndex])
-      );
-    } else {
-      setPixelsSelected(pixelsSelected.filter((index) => index !== pixelIndex));
-      localStorage.setItem(
-        "arrayPixelsSelected",
-        JSON.stringify(pixelsSelected.filter((index) => index !== pixelIndex))
-      );
-    }
+    const updatedPixels = pixelsSelected.includes(pixelIndex)
+      ? pixelsSelected.filter((index) => index !== pixelIndex)
+      : [...pixelsSelected, pixelIndex];
+
+    setPixelsSelected(updatedPixels);
+    localStorage.setItem("arrayPixelsSelected", JSON.stringify(updatedPixels));
   };
 
   const renderGrid = () => {
